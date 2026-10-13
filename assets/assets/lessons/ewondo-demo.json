@@ -1,0 +1,148 @@
+{
+  "lessonId": "ewondo-demo",
+  "packVersion": 1,
+  "title": { "fr": "Dire bonjour", "en": "Saying hello" },
+  "xpReward": 15,
+  "exercises": [
+    {
+      "id": "ex-ewo-demo-1",
+      "type": "MULTIPLE_CHOICE",
+      "prompt": { "fr": "Comment dit-on « Bonjour » en ewondo ?", "en": "How do you say “Hello” in Ewondo?" },
+      "data": {},
+      "audioUrl": null,
+      "imageUrl": null,
+      "vocabulary": {
+        "term": "Mbɔ́lɔ́",
+        "ipa": "m̀bɔ́lɔ́",
+        "toneMarks": [
+          { "syllable": "mbɔ́", "tone": "H" },
+          { "syllable": "lɔ́", "tone": "H" }
+        ],
+        "translations": { "fr": ["bonjour", "salut"], "en": ["hello", "hi"] },
+        "audioUrl": null
+      },
+      "options": [
+        { "id": "ex1-o1", "text": { "fr": "Mbɔ́lɔ́", "en": "Mbɔ́lɔ́" }, "isCorrect": true, "audioUrl": null },
+        { "id": "ex1-o2", "text": { "fr": "Akíba", "en": "Akíba" }, "isCorrect": false, "audioUrl": null },
+        { "id": "ex1-o3", "text": { "fr": "Kídí", "en": "Kídí" }, "isCorrect": false, "audioUrl": null }
+      ]
+    },
+    {
+      "id": "ex-ewo-demo-2",
+      "type": "TONE_DRILL",
+      "prompt": { "fr": "Quel schéma de tons porte « Mbɔ́lɔ́ » ?", "en": "Which tone pattern does “Mbɔ́lɔ́” carry?" },
+      "data": {
+        "choices": [
+          {
+            "id": "hh",
+            "label": { "fr": "Haut – Haut", "en": "High – High" },
+            "correct": true,
+            "syllables": [
+              { "syllable": "mbɔ́", "contour": [[0, 0.8], [1, 0.8]] },
+              { "syllable": "lɔ́", "contour": [[0, 0.8], [1, 0.8]] }
+            ]
+          },
+          {
+            "id": "ll",
+            "label": { "fr": "Bas – Bas", "en": "Low – Low" },
+            "correct": false,
+            "syllables": [
+              { "syllable": "mbɔ", "contour": [[0, 0.25], [1, 0.25]] },
+              { "syllable": "lɔ", "contour": [[0, 0.25], [1, 0.25]] }
+            ]
+          },
+          {
+            "id": "hl",
+            "label": { "fr": "Haut – Bas", "en": "High – Low" },
+            "correct": false,
+            "syllables": [
+              { "syllable": "mbɔ́", "contour": [[0, 0.8], [1, 0.8]] },
+              { "syllable": "lɔ̀", "contour": [[0, 0.6], [1, 0.25]] }
+            ]
+          }
+        ]
+      },
+      "audioUrl": null,
+      "imageUrl": null,
+      "vocabulary": {
+        "term": "Mbɔ́lɔ́",
+        "ipa": "m̀bɔ́lɔ́",
+        "toneMarks": [
+          { "syllable": "mbɔ́", "tone": "H" },
+          { "syllable": "lɔ́", "tone": "H" }
+        ],
+        "translations": { "fr": ["bonjour"], "en": ["hello"] },
+        "audioUrl": null
+      },
+      "options": []
+    },
+    {
+      "id": "ex-ewo-demo-3",
+      "type": "MULTIPLE_CHOICE",
+      "prompt": { "fr": "Que signifie « Akíba » ?", "en": "What does “Akíba” mean?" },
+      "data": {},
+      "audioUrl": null,
+      "imageUrl": null,
+      "vocabulary": {
+        "term": "Akíba",
+        "ipa": "àkíbà",
+        "toneMarks": [
+          { "syllable": "a", "tone": "L" },
+          { "syllable": "kí", "tone": "H" },
+          { "syllable": "ba", "tone": "L" }
+        ],
+        "translations": { "fr": ["merci"], "en": ["thank you"] },
+        "audioUrl": null
+      },
+      "options": [
+        { "id": "ex3-o1", "text": { "fr": "Merci", "en": "Thank you" }, "isCorrect": true, "audioUrl": null },
+        { "id": "ex3-o2", "text": { "fr": "Bonjour", "en": "Hello" }, "isCorrect": false, "audioUrl": null },
+        { "id": "ex3-o3", "text": { "fr": "Bonsoir", "en": "Good evening" }, "isCorrect": false, "audioUrl": null }
+      ]
+    },
+    {
+      "id": "ex-ewo-demo-4",
+      "type": "LISTENING",
+      "prompt": { "fr": "Écoute et choisis ce que tu entends", "en": "Listen and pick what you hear" },
+      "data": {},
+      "audioUrl": null,
+      "imageUrl": null,
+      "vocabulary": {
+        "term": "Mbɛ̀mbɛ́ kídí",
+        "ipa": "mbɛ̀mbɛ́ kídí",
+        "toneMarks": [
+          { "syllable": "mbɛ̀", "tone": "L" },
+          { "syllable": "mbɛ́", "tone": "H" },
+          { "syllable": "kí", "tone": "H" },
+          { "syllable": "dí", "tone": "H" }
+        ],
+        "translations": { "fr": ["bonjour (le matin)"], "en": ["good morning"] },
+        "audioUrl": null
+      },
+      "options": [
+        { "id": "ex4-o1", "text": { "fr": "Mbɛ̀mbɛ́ kídí", "en": "Mbɛ̀mbɛ́ kídí" }, "isCorrect": true, "audioUrl": null },
+        { "id": "ex4-o2", "text": { "fr": "Mbɔ́lɔ́", "en": "Mbɔ́lɔ́" }, "isCorrect": false, "audioUrl": null },
+        { "id": "ex4-o3", "text": { "fr": "Akíba", "en": "Akíba" }, "isCorrect": false, "audioUrl": null }
+      ]
+    },
+    {
+      "id": "ex-ewo-demo-5",
+      "type": "SPEAKING",
+      "prompt": { "fr": "Prononce : Mbɔ́lɔ́", "en": "Say it out loud: Mbɔ́lɔ́" },
+      "data": { "term": "Mbɔ́lɔ́", "ipa": "m̀bɔ́lɔ́" },
+      "audioUrl": null,
+      "imageUrl": null,
+      "vocabulary": {
+        "term": "Mbɔ́lɔ́",
+        "ipa": "m̀bɔ́lɔ́",
+        "toneMarks": [
+          { "syllable": "mbɔ́", "tone": "H" },
+          { "syllable": "lɔ́", "tone": "H" }
+        ],
+        "translations": { "fr": ["bonjour"], "en": ["hello"] },
+        "audioUrl": null
+      },
+      "options": []
+    }
+  ]
+}

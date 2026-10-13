@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/mboalang-app/">
+  <!-- Version privée : ne pas référencer dans les moteurs de recherche. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="MboaLang — apprends les langues camerounaises (Bamoun, Ghɔmálá', Ewondo, Ngiemboon…) avec des leçons courtes, tonales et vivantes.">
+  <meta name="theme-color" content="#146B3A">
+
+  <!-- Open Graph / partage social (aperçu quand on partage le lien) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MboaLang">
+  <meta property="og:title" content="MboaLang — apprends les langues camerounaises">
+  <meta property="og:description" content="Des leçons courtes, tonales et vivantes pour apprendre le Bamoun, le Ghɔmálá', l'Ewondo, le Ngiemboon et plus.">
+  <meta property="og:image" content="icons/Icon-512.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MboaLang — apprends les langues camerounaises">
+  <meta name="twitter:description" content="Des leçons courtes, tonales et vivantes pour apprendre les langues du Cameroun.">
+  <meta name="twitter:image" content="icons/Icon-512.png">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="MboaLang">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>MboaLang</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Hors-ligne : voir mboa_sw.js. Exige HTTPS (ou localhost).
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('mboa_sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
