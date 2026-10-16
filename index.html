@@ -16,9 +16,13 @@
   -->
   <base href="/mboalang-app/">
   <!-- Version privée : ne pas référencer dans les moteurs de recherche. -->
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="noindex, nofollow, noarchive, noai, noimageai">
 
   <meta charset="UTF-8">
+  <!-- Politique de sécurité : seuls ce site, le moteur de rendu de Flutter et
+       des connexions chiffrées sont permis (pas de plugin, pas de base étrangère). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https: data: blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="MboaLang — apprends les langues camerounaises (Bamoun, Ghɔmálá', Ewondo, Ngiemboon…) avec des leçons courtes, tonales et vivantes.">
   <meta name="theme-color" content="#146B3A">

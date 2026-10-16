@@ -1,0 +1,21 @@
+# Garde le serveur gratuit éveillé (Render l'endort après 15 min sans visite) :
+# toutes les 14 minutes, de 5 h à 23 h (heure du Cameroun), un simple « ça va ? ».
+# L'adresse est lue dans la configuration signée publiée sur ce site.
+name: Réveil du serveur
+on:
+  schedule:
+    - cron: '*/14 4-22 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ping
+        run: |
+          API=$(node -e "const d=require('./config.json');const c=JSON.parse(d.config);process.stdout.write(c.api||'')")
+          if [ -z "$API" ]; then echo "Pas encore de serveur."; exit 0; fi
+          curl -fsS --max-time 90 "$API/app/health" && echo " — serveur éveillé"
