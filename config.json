@@ -1,4 +1,4 @@
 {
-  "config": "{\"api\":null,\"licensing\":false,\"supportPhones\":[\"+237 6 21 20 76 60\",\"+237 6 83 50 78 79\"],\"signedAt\":\"2026-10-15T23:44:26.380Z\"}",
-  "sig": "alLBuLEpIn80UbT6G3WnbanRwwzWfv9hNr0QB7bS1PLl+ViftXkkK/QtuyAtv91R3UMeBH+ZQvK1yxqo7gXRDQ=="
+  "config": "{\"api\":\"https://mboalang-api.onrender.com/v1\",\"licensing\":false,\"supportPhones\":[\"+237 6 21 20 76 60\",\"+237 6 83 50 78 79\"],\"signedAt\":\"2026-10-16T10:58:59.900Z\"}",
+  "sig": "hplTxDz23mPed4YyNrKVmvFXbXAbFmXsgtMLx5sLh06xtdcEFBX02NjwbCsmMJWIEueId2F8KcGAKyr/aeqAAg=="
 }
