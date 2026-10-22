@@ -1,0 +1,27 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "backgroundImage": { "url": "${image}", "fillMode": "cover", "horizontalAlignment": "left" },
+  "minHeight": "140px",
+  "verticalContentAlignment": "center",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        { "type": "Column", "width": 40 },
+        {
+          "type": "Column",
+          "width": 60,
+          "verticalContentAlignment": "center",
+          "items": [
+            { "type": "TextBlock", "text": "${headline}", "size": "extraLarge", "weight": "bolder", "color": "light", "wrap": true },
+            { "type": "TextBlock", "text": "${message}", "color": "light", "wrap": true, "maxLines": 3, "spacing": "small" },
+            { "type": "TextBlock", "$when": "${goal != ''}", "text": "${goal}", "color": "light", "size": "small", "isSubtle": true, "spacing": "small" }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [{ "type": "Action.Execute", "title": "${open}", "verb": "open" }]
+}

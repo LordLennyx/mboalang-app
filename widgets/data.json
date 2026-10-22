@@ -1,0 +1,10 @@
+{
+  "image": "../notif/neutral_left.jpg",
+  "imageRight": "../notif/neutral_right.jpg",
+  "headline": "MboaLang",
+  "message": "Ouvre MboaLang une fois : Nsangou suivra ensuite ta journée ici.",
+  "meaning": "Tes mots appris apparaîtront ici.",
+  "goal": "",
+  "week": [],
+  "open": "Ouvrir MboaLang"
+}

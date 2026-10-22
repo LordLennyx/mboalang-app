@@ -1,35 +1,100 @@
 {
+    "id": "./",
     "name": "MboaLang — langues camerounaises",
     "short_name": "MboaLang",
-    "start_url": ".",
+    "description": "Apprends les langues camerounaises avec des leçons courtes, tonales et vivantes.",
+    "lang": "fr",
+    "dir": "ltr",
+    "start_url": "./",
+    "scope": "./",
     "display": "standalone",
+    "display_override": ["window-controls-overlay", "standalone"],
     "background_color": "#146B3A",
     "theme_color": "#146B3A",
-    "description": "Apprends les langues camerounaises avec des leçons courtes, tonales et vivantes.",
-    "orientation": "portrait-primary",
+    "orientation": "any",
+    "categories": ["education", "books"],
     "prefer_related_applications": false,
+    "launch_handler": { "client_mode": ["focus-existing", "auto"] },
+    "edge_side_panel": { "preferred_width": 440 },
     "icons": [
+        { "src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "icons/Icon-512.png", "sizes": "512x512", "type": "image/png" },
+        { "src": "icons/Icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+        { "src": "icons/Icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+        { "src": "icons/badge-96.png", "sizes": "96x96", "type": "image/png", "purpose": "monochrome" }
+    ],
+    "shortcuts": [
         {
-            "src": "icons/Icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
+            "name": "Leçon du jour",
+            "short_name": "Leçon",
+            "description": "Reprendre le parcours là où tu t’es arrêté",
+            "url": "./#/home",
+            "icons": [{ "src": "icons/sc-lesson.png", "sizes": "96x96", "type": "image/png" }]
         },
         {
-            "src": "icons/Icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "name": "Réviser mes mots",
+            "short_name": "Réviser",
+            "description": "Les mots sur le point de t’échapper",
+            "url": "./#/practice/review",
+            "icons": [{ "src": "icons/sc-review.png", "sizes": "96x96", "type": "image/png" }]
         },
         {
-            "src": "icons/Icon-maskable-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
+            "name": "Mes mots",
+            "short_name": "Mes mots",
+            "description": "Tous les mots que tu as appris",
+            "url": "./#/words",
+            "icons": [{ "src": "icons/sc-words.png", "sizes": "96x96", "type": "image/png" }]
         },
         {
-            "src": "icons/Icon-maskable-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
+            "name": "Quêtes du jour",
+            "short_name": "Quêtes",
+            "description": "Tes quêtes et ta série",
+            "url": "./#/quests",
+            "icons": [{ "src": "icons/sc-quests.png", "sizes": "96x96", "type": "image/png" }]
+        }
+    ],
+    "widgets": [
+        {
+            "name": "Nsangou",
+            "short_name": "Nsangou",
+            "description": "La mascotte, ta série et sa petite phrase du moment",
+            "tag": "nsangou",
+            "template": "nsangou",
+            "ms_ac_template": "widgets/nsangou.json",
+            "data": "widgets/data.json",
+            "type": "application/json",
+            "auth": false,
+            "update": 3600,
+            "screenshots": [{ "src": "notif/neutral_left.jpg", "sizes": "800x320", "label": "Nsangou et ta série" }],
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Ma semaine",
+            "short_name": "Semaine",
+            "description": "Tes sept jours et ton objectif du jour",
+            "tag": "week",
+            "template": "week",
+            "ms_ac_template": "widgets/week.json",
+            "data": "widgets/data.json",
+            "type": "application/json",
+            "auth": false,
+            "update": 3600,
+            "screenshots": [{ "src": "notif/joy_left.jpg", "sizes": "800x320", "label": "Ta semaine" }],
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Mon mot",
+            "short_name": "Mon mot",
+            "description": "Un mot que tu as appris, pour ne pas l’oublier",
+            "tag": "word",
+            "template": "word",
+            "ms_ac_template": "widgets/word.json",
+            "data": "widgets/data.json",
+            "type": "application/json",
+            "auth": false,
+            "update": 3600,
+            "screenshots": [{ "src": "notif/love_left.jpg", "sizes": "800x320", "label": "Un mot appris" }],
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
         }
     ]
 }

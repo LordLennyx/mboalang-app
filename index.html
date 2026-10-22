@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
+    Chemin de base : remplacé au build par la valeur de --base-href
+    (« / » en local, « /mboalang-app/ » sur GitHub Pages).
   -->
   <base href="/mboalang-app/">
   <!-- Version privée : ne pas référencer dans les moteurs de recherche. -->
@@ -23,9 +14,12 @@
        des connexions chiffrées sont permis (pas de plugin, pas de base étrangère). -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https: data: blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="referrer" content="no-referrer">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <!-- Remplacée par Flutter au démarrage ; mboa_web.js y remet viewport-fit=cover. -->
+  <meta name="viewport" flt-viewport content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="MboaLang — apprends les langues camerounaises (Bamoun, Ghɔmálá', Ewondo, Ngiemboon…) avec des leçons courtes, tonales et vivantes.">
   <meta name="theme-color" content="#146B3A">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- Open Graph / partage social (aperçu quand on partage le lien) -->
   <meta property="og:type" content="website">
@@ -39,36 +33,87 @@
   <meta name="twitter:description" content="Des leçons courtes, tonales et vivantes pour apprendre les langues du Cameroun.">
   <meta name="twitter:image" content="icons/Icon-512.png">
 
-  <!-- iOS meta tags & icons -->
+  <!-- iPhone et iPad : application plein écran, barre d'état sur fond vert
+       (dessiné par l'application, voir web_safe_area.dart), icône et écrans
+       de démarrage (tools/gen-web-assets.py). -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MboaLang">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="splash/1320x2868.png" media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1206x2622.png" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1290x2796.png" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1179x2556.png" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1284x2778.png" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1170x2532.png" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1125x2436.png" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1242x2688.png" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/828x1792.png" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1242x2208.png" media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/750x1334.png" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/640x1136.png" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/2048x2732.png" media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1668x2388.png" media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1640x2360.png" media="screen and (device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1668x2224.png" media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1620x2160.png" media="screen and (device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1536x2048.png" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="splash/1488x2266.png" media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
+  <link rel="icon" type="image/png" href="favicon.png">
   <title>MboaLang</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { margin: 0; height: 100%; background: #146B3A; }
+    /* Écran de chargement : retiré au premier écran de l'application. */
+    #mboa-splash {
+      position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px; background: #146B3A;
+      color: #fff; font: 800 22px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+      transition: opacity .35s ease;
+    }
+    #mboa-splash.gone { opacity: 0; pointer-events: none; }
+    #mboa-splash img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    #mboa-splash .bar { width: 120px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); overflow: hidden; }
+    #mboa-splash .bar::after {
+      content: ""; display: block; width: 40%; height: 100%; border-radius: 2px; background: #F2B33D;
+      animation: mboa-load 1.1s ease-in-out infinite;
+    }
+    @keyframes mboa-load { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+    @media (prefers-reduced-motion: reduce) { #mboa-splash .bar::after { animation: none; width: 100%; } }
+
+    /* Application installée sur ordinateur (Chrome, Edge) : l'application vit
+       dans #mboa-app, sous la barre de titre que MboaLang dessine elle-même
+       quand la fenêtre masque celle du système (Window Controls Overlay). */
+    html.mboa-embedded #mboa-app { position: fixed; left: 0; right: 0; bottom: 0; top: 0; }
+    #mboa-titlebar { display: none; }
+    @media (display-mode: window-controls-overlay) {
+      html.mboa-embedded #mboa-app { top: env(titlebar-area-height, 33px); }
+      #mboa-titlebar {
+        display: flex; align-items: center; gap: 8px; position: fixed; z-index: 5;
+        left: env(titlebar-area-x, 0px); top: env(titlebar-area-y, 0px);
+        width: env(titlebar-area-width, 100%); height: env(titlebar-area-height, 33px);
+        padding: 0 12px; box-sizing: border-box; color: #fff; user-select: none;
+        font: 700 13px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+        -webkit-app-region: drag; app-region: drag;
+      }
+      #mboa-titlebar img { width: 18px; height: 18px; border-radius: 5px; }
+      #mboa-titlebar span { opacity: .78; font-weight: 500; }
+    }
+  </style>
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
-
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
+  <div id="mboa-splash" role="status" aria-label="MboaLang">
+    <img src="icons/Icon-192.png" alt="">
+    <div>MboaLang</div>
+    <div class="bar"></div>
+  </div>
+  <div id="mboa-titlebar" aria-hidden="true">
+    <img src="icons/Icon-192.png" alt="">MboaLang
+  </div>
+  <div id="mboa-app"></div>
+  <script src="mboa_web.js"></script>
   <script src="flutter_bootstrap.js" async></script>
-  <script>
-    // Hors-ligne : voir mboa_sw.js. Exige HTTPS (ou localhost).
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('mboa_sw.js').catch(function () {});
-      });
-    }
-  </script>
 </body>
 </html>

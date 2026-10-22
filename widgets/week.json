@@ -1,0 +1,40 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "backgroundImage": { "url": "${imageRight}", "fillMode": "cover", "horizontalAlignment": "right" },
+  "minHeight": "140px",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 62,
+          "items": [
+            { "type": "TextBlock", "text": "${headline}", "size": "large", "weight": "bolder", "color": "light", "wrap": true },
+            { "type": "TextBlock", "text": "${message}", "color": "light", "wrap": true, "maxLines": 2, "spacing": "small" },
+            {
+              "type": "ColumnSet",
+              "spacing": "medium",
+              "columns": [
+                {
+                  "$data": "${week}",
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    { "type": "TextBlock", "text": "${s}", "color": "light", "horizontalAlignment": "center", "size": "medium" },
+                    { "type": "TextBlock", "text": "${d}", "color": "light", "horizontalAlignment": "center", "size": "small", "spacing": "none", "isSubtle": true }
+                  ]
+                }
+              ]
+            },
+            { "type": "TextBlock", "$when": "${goal != ''}", "text": "${goal}", "color": "light", "size": "small", "isSubtle": true }
+          ]
+        },
+        { "type": "Column", "width": 38 }
+      ]
+    }
+  ],
+  "actions": [{ "type": "Action.Execute", "title": "${open}", "verb": "open" }]
+}

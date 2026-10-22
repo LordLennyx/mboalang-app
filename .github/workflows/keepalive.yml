@@ -19,3 +19,14 @@ jobs:
           API=$(node -e "const d=require('./config.json');const c=JSON.parse(d.config);process.stdout.write(c.api||'')")
           if [ -z "$API" ]; then echo "Pas encore de serveur."; exit 0; fi
           curl -fsS --max-time 90 "$API/app/health" && echo " — serveur éveillé"
+      # Rappels Web Push : envoie au passage les messages arrivés à échéance.
+      # Simple filet de sécurité (les tâches planifiées de GitHub partent avec
+      # des minutes de retard) : le réveil principal est un service extérieur
+      # appelé chaque minute (docs/WEB_PARITE.md, § Web Push).
+      - name: Rappels push
+        env:
+          PUSH_CRON_SECRET: ${{ secrets.PUSH_CRON_SECRET }}
+        run: |
+          API=$(node -e "const d=require('./config.json');const c=JSON.parse(d.config);process.stdout.write(c.api||'')")
+          if [ -z "$API" ] || [ -z "$PUSH_CRON_SECRET" ]; then echo "Web Push non configuré."; exit 0; fi
+          curl -fsS --max-time 90 -X POST -H "x-push-secret: $PUSH_CRON_SECRET" "$API/push/tick" && echo " — rappels envoyés"

@@ -35,8 +35,28 @@ if (!window._flutter) {
 }
 _flutter.buildConfig = {"engineRevision":"83675ed27633283e7fc296c8bca22e841224c096","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"},{}],"useLocalCanvasKit":true};
 
-_flutter.loader.load({
-  serviceWorkerSettings: {
-    serviceWorkerVersion: "1383145178" /* Flutter's service worker is deprecated and will be removed in a future Flutter release. */
-  }
-});
+
+// Démarrage de MboaLang. Le service worker est celui de l'application
+// (mboa_sw.js, enregistré par mboa_web.js), pas celui de Flutter.
+//
+// Application installée sur ordinateur (Chrome, Edge) : Flutter est posé dans
+// #mboa-app, sous la barre de titre dessinée par MboaLang (Window Controls
+// Overlay). Partout ailleurs (téléphones, onglets), plein écran classique.
+(function () {
+  var embedded = false;
+  try {
+    embedded =
+      ('windowControlsOverlay' in navigator &&
+        !/Android|iPhone|iPad/.test(navigator.userAgent) &&
+        matchMedia('(display-mode: standalone), (display-mode: window-controls-overlay)').matches) ||
+      /[?&]mboa_embed=1/.test(location.search);
+  } catch (_) {}
+  var host = embedded ? document.getElementById('mboa-app') : null;
+  if (host) document.documentElement.classList.add('mboa-embedded');
+  _flutter.loader.load({
+    onEntrypointLoaded: async function (engineInitializer) {
+      var appRunner = await engineInitializer.initializeEngine(host ? { hostElement: host } : {});
+      await appRunner.runApp();
+    },
+  });
+})();
