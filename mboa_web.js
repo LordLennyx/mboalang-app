@@ -4,6 +4,28 @@
 (function () {
   'use strict';
 
+  // --- Démarrage plus rapide : le programme et le moteur graphique sont
+  // demandés tout de suite, en parallèle, au lieu d'attendre l'amorce de
+  // Flutter. Même choix de variante que Flutter (flutter.js) : « chromium »
+  // pour Chrome et Edge récents, la variante générale ailleurs.
+  try {
+    const blink = navigator.vendor === 'Google Inc.' || navigator.userAgent.includes('Edg/');
+    const chromium = blink && typeof ImageDecoder !== 'undefined' &&
+      typeof Intl.v8BreakIterator !== 'undefined' && typeof Intl.Segmenter !== 'undefined';
+    const dir = chromium ? 'canvaskit/chromium/' : 'canvaskit/';
+    const hint = (href, as, cors) => {
+      const link = document.createElement('link');
+      link.rel = as === 'module' ? 'modulepreload' : 'preload';
+      if (as !== 'module') link.as = as;
+      if (cors) link.crossOrigin = 'anonymous';
+      link.href = href;
+      document.head.appendChild(link);
+    };
+    hint('main.dart.js', 'script');
+    hint(dir + 'canvaskit.js', 'module');
+    hint(dir + 'canvaskit.wasm', 'fetch', true);
+  } catch (_) {}
+
   const listeners = [];
   const waiting = [];
   let installEvent = null;
@@ -107,6 +129,32 @@
   }
   window.addEventListener('resize', notifyInsets);
   window.addEventListener('orientationchange', () => setTimeout(notifyInsets, 300));
+
+  // --- Nouvelle version publiée : l'empreinte du build chargé est lue tout
+  // de suite (même publication que main.dart.js), puis comparée à celle du
+  // site au retour dans l'application et toutes les 30 minutes.
+  let loadedBuild = null;
+  let announced = false;
+  function shellBuild() {
+    return fetch('mboa_shell.json', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((j) => j.build || null)
+      .catch(() => null);
+  }
+  shellBuild().then((b) => (loadedBuild = b));
+  function checkVersion() {
+    if (announced || !loadedBuild || !navigator.onLine) return;
+    shellBuild().then((b) => {
+      if (b && loadedBuild && b !== loadedBuild && !announced) {
+        announced = true;
+        emit({ type: 'newversion' });
+      }
+    });
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') checkVersion();
+  });
+  setInterval(checkVersion, 30 * 60 * 1000);
 
   // --- Service worker.
   let registration = null;
@@ -221,6 +269,14 @@
     setIcon(key) {
       const link = document.querySelector('link[rel="icon"]');
       if (link) link.setAttribute('href', 'icons/living/' + key + '.png');
+    },
+    setLang(code) {
+      try {
+        document.documentElement.lang = code;
+      } catch (_) {}
+    },
+    reload() {
+      location.reload();
     },
     vibrate(ms) {
       try {

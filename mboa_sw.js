@@ -108,13 +108,24 @@ self.addEventListener('activate', (event) => {
         if (key.startsWith('mboa-ort-') && key !== ORT_CACHE) await caches.delete(key);
       }
       await self.clients.claim();
-      precache();
+      // Première visite : on attend que l'application ait affiché son premier
+      // écran (message « warm ») pour ne pas lui disputer la connexion.
+      // Mise à jour : l'application est déjà là, on complète tout de suite.
+      if (await kvGet('shellDone', 0)) precache();
     })(),
   );
 });
 
-/** Ce dont l'application a besoin pour démarrer, puis les leçons. */
-async function precache() {
+let precaching = null;
+
+/** Ce dont l'application a besoin pour démarrer, puis les leçons (une seule
+ *  passe à la fois). */
+function precache() {
+  if (!precaching) precaching = runPrecache().finally(() => (precaching = null));
+  return precaching;
+}
+
+async function runPrecache() {
   try {
     const cache = await caches.open(CACHE);
     let shell = ['index.html', 'main.dart.js', 'flutter_bootstrap.js', 'manifest.json'];
@@ -329,6 +340,9 @@ self.addEventListener('message', (event) => {
       case 'tick':
         await checkDue();
         await refreshPresence();
+        // Premier passage pas encore fini (réseau coupé, onglet fermé) : on
+        // reprend.
+        if (!(await kvGet('shellDone', 0))) await precache();
         break;
       case 'pending': {
         const now = Date.now();
@@ -365,6 +379,8 @@ self.addEventListener('message', (event) => {
           }
         });
         await addAll(cache, urls);
+        // Premier écran affiché : le reste peut venir.
+        await precache();
         break;
       }
       case 'offline':
