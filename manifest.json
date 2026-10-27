@@ -23,6 +23,11 @@
         { "src": "icons/Icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
         { "src": "icons/badge-96.png", "sizes": "96x96", "type": "image/png", "purpose": "monochrome" }
     ],
+    "screenshots": [
+        { "src": "screenshots/parcours.webp", "sizes": "780x1688", "type": "image/webp", "form_factor": "narrow", "label": "Le parcours : des leçons courtes, unité après unité" },
+        { "src": "screenshots/widgets.webp", "sizes": "780x1200", "type": "image/webp", "form_factor": "narrow", "label": "Nsangou veille sur ta série" },
+        { "src": "screenshots/parcours_large.webp", "sizes": "1600x1000", "type": "image/webp", "form_factor": "wide", "label": "Le parcours sur grand écran" }
+    ],
     "shortcuts": [
         {
             "name": "Leçon du jour",

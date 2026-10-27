@@ -135,8 +135,11 @@
   // site au retour dans l'application et toutes les 30 minutes.
   let loadedBuild = null;
   let announced = false;
-  function shellBuild() {
-    return fetch('mboa_shell.json', { cache: 'no-store' })
+  // « ?fresh » : toujours le réseau, même quand l'application a démarré
+  // depuis le cache sur une connexion lente (mboa_sw.js) ; sans : la version
+  // réellement chargée.
+  function shellBuild(fresh) {
+    return fetch(fresh ? 'mboa_shell.json?fresh=1' : 'mboa_shell.json', { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : {}))
       .then((j) => j.build || null)
       .catch(() => null);
@@ -144,7 +147,7 @@
   shellBuild().then((b) => (loadedBuild = b));
   function checkVersion() {
     if (announced || !loadedBuild || !navigator.onLine) return;
-    shellBuild().then((b) => {
+    shellBuild(true).then((b) => {
       if (b && loadedBuild && b !== loadedBuild && !announced) {
         announced = true;
         emit({ type: 'newversion' });

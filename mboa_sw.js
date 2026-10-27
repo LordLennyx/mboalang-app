@@ -8,7 +8,9 @@
 //  • les parcours de toutes les langues, puis les leçons de la langue apprise ;
 //  • les enregistrements audio : dès qu'ils ont été entendus une fois, ou
 //    tous ceux d'une langue à la demande (« Disponible hors-ligne ») ;
-//  • tout le reste : réseau d'abord, cache en secours sans réseau.
+//  • tout le reste : réseau d'abord, cache en secours sans réseau ; sur une
+//    connexion trop lente (page sans réponse en 4 s), l'application démarre
+//    entièrement depuis le cache, comme une application installée.
 //    Les appels au serveur (/v1/) ne sont jamais mis en cache.
 //  • note de prononciation v2 (ort/mboa_ssl.js) : le moteur onnxruntime-web
 //    (ort/, 14 Mo) n'est demandé que sur un appareil qui s'en sert, puis
@@ -229,16 +231,60 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname.includes('/v1/')) return;
+  // Empreinte de la version en ligne : le réseau seul, jamais gardée.
+  if (url.search.includes('fresh')) return;
   // Modèle vocal du téléphone : jamais servi ni gardé par le web.
   if (url.pathname.includes('/assets/assets/models/')) return;
   if (ORT_FILE.test(url.pathname)) {
     event.respondWith(ortFirst(request));
     return;
   }
-  event.respondWith(
-    url.pathname.includes(MEDIA) ? mediaFirst(request) : networkFirst(request),
-  );
+  if (url.pathname.includes(MEDIA)) {
+    event.respondWith(mediaFirst(request));
+  } else if (request.mode === 'navigate') {
+    event.respondWith(openApp(request, event.resultingClientId));
+  } else if (slowClients.has(event.clientId)) {
+    event.respondWith(cacheFirst(request));
+  } else {
+    event.respondWith(networkFirst(request));
+  }
 });
+
+// Connexion lente (2G, réseau saturé) : une application installée démarre
+// sans attendre. Si la page ne répond pas en 4 s et qu'une copie existe,
+// l'application s'ouvre depuis le cache, et TOUT ce que cette page demande
+// ensuite vient du cache (jamais un mélange de deux versions) ; la version
+// en ligne est reprise au lancement suivant, ou par le bandeau « nouvelle
+// version » (mboa_web.js compare l'empreinte avec « mboa_shell.json?fresh »).
+const SLOW_START = 4000;
+const slowClients = new Set();
+
+async function openApp(request, clientId) {
+  const cache = await caches.open(CACHE);
+  const cached =
+    (await cache.match(request, { ignoreSearch: true })) ||
+    (await cache.match('./')) ||
+    (await cache.match('index.html'));
+  if (!cached || !(await kvGet('shellDone', 0))) return networkFirst(request);
+  let late = false;
+  const online = fetch(request)
+    .then((response) => {
+      if (!late && response.ok && response.status === 200) cache.put(request, response.clone());
+      return response;
+    })
+    .catch(() => null);
+  const timer = new Promise((resolve) => setTimeout(() => resolve('slow'), SLOW_START));
+  const first = await Promise.race([online, timer]);
+  if (first && first !== 'slow') return first;
+  late = true;
+  if (clientId) slowClients.add(clientId);
+  return cached;
+}
+
+async function cacheFirst(request) {
+  const cached = await (await caches.open(CACHE)).match(request, { ignoreSearch: true });
+  return cached || networkFirst(request);
+}
 
 async function networkFirst(request) {
   const cache = await caches.open(CACHE);
@@ -372,6 +418,7 @@ self.addEventListener('message', (event) => {
             const url = new URL(u);
             return url.origin === self.location.origin &&
               !url.pathname.includes('/v1/') &&
+              !url.search.includes('fresh') &&
               !url.pathname.includes('/assets/assets/models/') &&
               !ORT_FILE.test(url.pathname);
           } catch (_) {
